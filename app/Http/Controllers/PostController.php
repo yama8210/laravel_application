@@ -15,6 +15,7 @@ class PostController extends Controller
         return view('posts.index',['posts'=>$posts]);
     }
     public function create(){
+        dd('投稿画面です');
         return view('posts.create');
     }
     public function store(PostRequest $request)
@@ -38,13 +39,15 @@ class PostController extends Controller
     }
     public function edit($id)
     {
+        
         $post = Post::findOrFail($id);
-
+dd($post);
         if ($post->user_id !== Auth::id()){
             return redirect('/');
         }
     
         return view('posts.edit',['post' => $post]);
+        
     }
     
     public function update(PostRequest $request,$id)
