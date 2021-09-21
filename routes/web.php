@@ -11,12 +11,19 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
 
 Route::get('sample', 'SampleController@index')->name('sample');
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/', 'PostController@index')->name('post.index');
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('post/create', 'PostController@create')->name('post.create');
+    Route::post('post/create', 'PostController@store')->name('post.store');
+    Route::get('post/{id}/show', 'PostController@show')->name('post.show');
+    Route::get('post/{id}/edit', 'PostController@edit')->name('post.edit'); // 追加
+    Route::post('post/{id}/update', 'PostController@update')->name('post.update');
+});
