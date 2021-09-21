@@ -43,7 +43,6 @@ class PostController extends Controller
         if ($post->user_id !== Auth::id()){
             return redirect('/');
         }
-        dd($post);
     
         return view('posts.edit',['post' => $post]);
     }
